@@ -6,46 +6,95 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 
 
+def root_mean_squared_error(y_true, y_pred):
+    return np.sqrt(mean_squared_error(y_true, y_pred))
+
+
 def run(X, y):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
     LR_model = LinearRegression()
     LR_model.fit(X_train, y_train)
     y_pred = LR_model.predict(X_test)
-    print('LR MSE:', mean_squared_error(y_test, y_pred))
-    print('LR MAE:', mean_absolute_error(y_test, y_pred))
-    print('KFold LR MSE:', np.mean(-cross_val_score(LR_model,
-          X, y, scoring='neg_mean_squared_error', cv=10)))
-    print('KFold LR MAE:', np.mean(-cross_val_score(LR_model,
-          X, y, scoring='neg_mean_absolute_error', cv=10)))
+    print("LR MSE:", mean_squared_error(y_test, y_pred))
+    print("LR MAE:", mean_absolute_error(y_test, y_pred))
+    print("LR RMSE:", root_mean_squared_error(y_test, y_pred))
+    print(
+        "KFold LR MSE:",
+        np.mean(
+            -cross_val_score(LR_model, X, y,
+                             scoring="neg_mean_squared_error", cv=10)
+        ),
+    )
+    print(
+        "KFold LR MAE:",
+        np.mean(
+            -cross_val_score(LR_model, X, y,
+                             scoring="neg_mean_absolute_error", cv=10)
+        ),
+    )
+    print(
+        "KFold LR RMSE:",
+        np.mean(
+            -cross_val_score(LR_model, X, y,
+                             scoring="neg_root_mean_squared_error", cv=10)
+        ),
+    )
 
     RFR_model = RandomForestRegressor()
     RFR_model.fit(X_train, y_train)
     y_pred = RFR_model.predict(X_test)
-    print('RFR MSE:', mean_squared_error(y_test, y_pred))
-    print('RFR MAE:', mean_absolute_error(y_test, y_pred))
-    print('KFold RFR MSE:', np.mean(-cross_val_score(RFR_model,
-          X, y, scoring='neg_mean_squared_error', cv=10)))
-    print('KFold RFR MAE:', np.mean(-cross_val_score(RFR_model,
-          X, y, scoring='neg_mean_absolute_error', cv=10)))
-    print('')
+    print("RFR MSE:", mean_squared_error(y_test, y_pred))
+    print("RFR MAE:", mean_absolute_error(y_test, y_pred))
+    print("RFR RMSE:", root_mean_squared_error(y_test, y_pred))
+    print(
+        "KFold RFR MSE:",
+        np.mean(
+            -cross_val_score(RFR_model, X, y,
+                             scoring="neg_mean_squared_error", cv=10)
+        ),
+    )
+    print(
+        "KFold RFR MAE:",
+        np.mean(
+            -cross_val_score(RFR_model, X, y,
+                             scoring="neg_mean_absolute_error", cv=10)
+        ),
+    )
+    print(
+        "KFold RFR RMSE:",
+        np.mean(
+            -cross_val_score(RFR_model, X, y,
+                             scoring="neg_root_mean_squared_error", cv=10)
+        ),
+    )
+    print("")
 
 
 # Load data
+columns = ['Year', 'Month', 'Day', 'Mực nước KG', 'Mực nước LT',
+           'Mực nước DH', 'Lượng mưa KG', 'Lượng mưa LT', 'Lượng mưa DH']
 df = pd.read_excel('Dataset_floodseason_76_20_NEW_3.11.xlsx',
                    skiprows=range(0, 2), header=None)
+df.columns = columns
+df['from_start_day'] = np.arange(0, len(df))
 
-print('Case 1')
+print("Case 1")
 X = df.iloc[:, [4, 5]].values
 y = df.iloc[:, 3].values
 run(X, y)
 
-print('Case 2')
+print("Case 2")
 X = df.iloc[:, [7, 8]].values
 y = df.iloc[:, 3].values
 run(X, y)
 
-print('Case 3')
+print("Case 3")
 X = df.iloc[:, [4, 5, 7, 8]].values
+y = df.iloc[:, 3].values
+run(X, y)
+
+print("Case 4")
+X = df.iloc[:, [-1]].values
 y = df.iloc[:, 3].values
 run(X, y)

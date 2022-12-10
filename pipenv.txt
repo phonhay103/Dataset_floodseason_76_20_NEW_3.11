@@ -1,0 +1,3 @@
+pipenv install -r requirements.txt
+pipenv --venv
+rm -rf <path>
