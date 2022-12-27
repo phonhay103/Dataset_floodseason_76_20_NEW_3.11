@@ -1,0 +1,47 @@
+==> Case 1 <==
+Linear Regression
+MAE 5: 0.403354
+MSE 5: 0.395748
+RMSE 5: 0.627920
+
+Random Forest Regression
+MAE 5: 0.384992
+MSE 5: 0.356335
+RMSE 5: 0.598213
+
+Light Gradient Boosting Machine Regression
+MAE 5: 0.385278
+MSE 5: 0.360177
+RMSE 5: 0.599537
+
+==> Case 2 <==
+Linear Regression
+MAE 5: 0.261303
+MSE 5: 0.239104
+RMSE 5: 0.487074
+
+Random Forest Regression
+MAE 5: 0.264665
+MSE 5: 0.245692
+RMSE 5: 0.494137
+
+Light Gradient Boosting Machine Regression
+MAE 5: 0.249218
+MSE 5: 0.237454
+RMSE 5: 0.485781
+
+==> Case 3 <==
+Linear Regression
+MAE 5: 0.154668
+MSE 5: 0.088105
+RMSE 5: 0.294031
+
+Random Forest Regression
+MAE 5: 0.132848
+MSE 5: 0.076566
+RMSE 5: 0.272583
+
+Light Gradient Boosting Machine Regression
+MAE 5: 0.133391
+MSE 5: 0.074592
+RMSE 5: 0.270320
