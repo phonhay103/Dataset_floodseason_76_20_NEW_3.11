@@ -1,47 +1,155 @@
 ==> Case 1 <==
+kfold None
 Linear Regression
+R2: 0.589271
+MAE: 0.275193
+MSE: 0.264975
+RMSE: 0.514757
+
+Random Forest Regression
+R2: 0.565914
+MAE: 0.283374
+MSE: 0.280043
+RMSE: 0.529191
+
+Light Gradient Boosting Machine Regression
+R2: 0.574179
+MAE: 0.274721
+MSE: 0.274711
+RMSE: 0.524129
+
+kfold 5
+Linear Regression
+R2 5: 0.613205
+MAE 5: 0.264456
+MSE 5: 0.242522
+RMSE 5: 0.490246
+
+Random Forest Regression
+R2 5: 0.600627
+MAE 5: 0.277257
+MSE 5: 0.250683
+RMSE 5: 0.498204
+
+Light Gradient Boosting Machine Regression
+R2 5: 0.611932
+MAE 5: 0.263999
+MSE 5: 0.243213
+RMSE 5: 0.491477
+
+==> Case 2 <==
+kfold None
+Linear Regression
+R2: 0.338798
+MAE: 0.411358
+MSE: 0.426563
+RMSE: 0.653118
+
+Random Forest Regression
+R2: 0.424139
+MAE: 0.391669
+MSE: 0.371507
+RMSE: 0.609514
+
+Light Gradient Boosting Machine Regression
+R2: 0.413866
+MAE: 0.387395
+MSE: 0.378134
+RMSE: 0.614926
+
+kfold 5
+Linear Regression
+R2 5: 0.363248
 MAE 5: 0.403354
 MSE 5: 0.395748
 RMSE 5: 0.627920
 
 Random Forest Regression
-MAE 5: 0.384992
-MSE 5: 0.356335
-RMSE 5: 0.598213
+R2 5: 0.421602
+MAE 5: 0.386353
+MSE 5: 0.354840
+RMSE 5: 0.597544
 
 Light Gradient Boosting Machine Regression
+R2 5: 0.417339
 MAE 5: 0.385278
 MSE 5: 0.360177
 RMSE 5: 0.599537
 
-==> Case 2 <==
+==> Case 3 <==
+kfold None
 Linear Regression
+R2: 0.593400
+MAE: 0.270892
+MSE: 0.262311
+RMSE: 0.512163
+
+Random Forest Regression
+R2: 0.570841
+MAE: 0.272288
+MSE: 0.276864
+RMSE: 0.526179
+
+Light Gradient Boosting Machine Regression
+R2: 0.582848
+MAE: 0.259732
+MSE: 0.269119
+RMSE: 0.518766
+
+kfold 5
+Linear Regression
+R2 5: 0.618247
 MAE 5: 0.261303
 MSE 5: 0.239104
 RMSE 5: 0.487074
 
 Random Forest Regression
-MAE 5: 0.264665
-MSE 5: 0.245692
-RMSE 5: 0.494137
+R2 5: 0.607096
+MAE 5: 0.263815
+MSE 5: 0.243673
+RMSE 5: 0.494982
 
 Light Gradient Boosting Machine Regression
+R2 5: 0.620438
 MAE 5: 0.249218
 MSE 5: 0.237454
 RMSE 5: 0.485781
 
-==> Case 3 <==
+==> Case 4 <==
+kfold None
+Linear Regression       
+R2: 0.886769
+MAE: 0.147491
+MSE: 0.073049
+RMSE: 0.270276
+
+Random Forest Regression
+R2: 0.900150
+MAE: 0.126467
+MSE: 0.064416
+RMSE: 0.253804
+
+Light Gradient Boosting Machine Regression
+R2: 0.905642
+MAE: 0.122201    
+MSE: 0.060874    
+RMSE: 0.246726   
+
+kfold 5
 Linear Regression
+R2 5: 0.855813
 MAE 5: 0.154668
 MSE 5: 0.088105
 RMSE 5: 0.294031
 
 Random Forest Regression
-MAE 5: 0.132848
-MSE 5: 0.076566
-RMSE 5: 0.272583
+R2 5: 0.874836
+MAE 5: 0.134470
+MSE 5: 0.076561
+RMSE 5: 0.273483
 
 Light Gradient Boosting Machine Regression
+R2 5: 0.878326
 MAE 5: 0.133391
 MSE 5: 0.074592
 RMSE 5: 0.270320
