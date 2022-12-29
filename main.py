@@ -101,7 +101,7 @@ for year in years:
 X = np.vstack(X)
 y = np.hstack(y)
 
-# run(X, y, kfold=None)
+run(X, y, kfold=None)
 # run(X, y, kfold=2)
 
 
@@ -128,7 +128,7 @@ for year in years:
 X = np.vstack(X)
 y = np.hstack(y)
 
-# run(X, y, kfold=None)
+run(X, y, kfold=None)
 # run(X, y, kfold=2)
 
 # Case 3
@@ -155,7 +155,7 @@ for year in years:
 X = np.vstack(X)
 y = np.hstack(y)
 
-# run(X, y, kfold=None)
+run(X, y, kfold=None)
 # run(X, y, kfold=2)
 
 # Case 4
@@ -176,6 +176,35 @@ for year in years:
                               'LM_KG', 'LM_LT', 'LM_DH']].values
         dx1 = dx1.reshape(1, -1)
         dx2 = dt.iloc[i+k][['LM_DH']].values
+        dx2 = dx2.reshape(1, -1)
+        x[i] = np.hstack((dx1, dx2))
+    X.append(x)
+    y.append(dt.iloc[k:].MN_KG.values)
+
+X = np.vstack(X)
+y = np.hstack(y)
+
+run(X, y, kfold=None)
+# run(X, y, kfold=2)
+
+# Case 5
+# x: MN_KG,LT,DH (t-3, t-2, t-1, t) | LM_KG,LT,DH (t-3, t-2, t-1, t) | MN_LT,DH,LM_KG,LT,DH (t+1) => 3 * 4 + 3 * 4 + 5 = 29
+# y: MN_KG (t+1)
+print("==> Case 5 <==")
+k = 4
+X = []
+y = []
+
+for year in years:
+    dt = df[df.Year == year]
+    max_len = len(dt)-k
+
+    x = np.empty((max_len, 29))
+    for i in range(max_len):
+        dx1 = dt.iloc[i:i+k][['MN_KG', 'MN_LT', 'MN_DH', 
+                              'LM_KG', 'LM_LT', 'LM_DH']].values
+        dx1 = dx1.reshape(1, -1)
+        dx2 = dt.iloc[i+k][['MN_LT', 'MN_DH', 'LM_KG', 'LM_LT', 'LM_DH']].values
         dx2 = dx2.reshape(1, -1)
         x[i] = np.hstack((dx1, dx2))
     X.append(x)
