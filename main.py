@@ -8,8 +8,15 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from lightgbm import LGBMRegressor
 
 
-def root_mean_squared_error(y_true, y_pred):
+def RMSE(y_true, y_pred):
     return np.sqrt(mean_squared_error(y_true, y_pred))
+
+def NSE(y_true, y_pred):
+    return 1-(np.sum((y_true - y_pred)**2) / np.sum((y_true - np.mean(y_pred))**2))
+
+def NSE_scorer(model, X, y):
+    y_pred = model.predict(X)
+    return NSE(y, y_pred)
 
 def calculate_model(model, X, y, random_state=42):
     X_train, X_test, y_train, y_test = train_test_split(
@@ -18,13 +25,16 @@ def calculate_model(model, X, y, random_state=42):
     model.fit(X_train, y_train)
     y_pred = model.predict(X_test)
 
+    print(f'NSE: {NSE(y_test, y_pred):5f}')
     print(f'R2: {r2_score(y_test, y_pred):5f}')
     print(f'MAE: {mean_absolute_error(y_test, y_pred):5f}')
     print(f'MSE: {mean_squared_error(y_test, y_pred):5f}')
-    print(f'RMSE: {root_mean_squared_error(y_test, y_pred):5f}')
+    print(f'RMSE: {RMSE(y_test, y_pred):5f}')
     print('')
 
 def calculate_kfold(model, X, y, kfold):
+    print(
+        f'NSE {kfold}: {np.mean(cross_val_score(model, X, y, scoring=NSE_scorer, cv=kfold)):5f}')
     print(
         f'R2 {kfold}: {np.mean(cross_val_score(model, X, y, scoring="r2", cv=kfold)):5f}')
     print(
@@ -91,8 +101,8 @@ for year in years:
 X = np.vstack(X)
 y = np.hstack(y)
 
-run(X, y, kfold=None)
-run(X, y, kfold=5)
+# run(X, y, kfold=None)
+# run(X, y, kfold=2)
 
 
 # Case 2
@@ -118,8 +128,8 @@ for year in years:
 X = np.vstack(X)
 y = np.hstack(y)
 
-run(X, y, kfold=None)
-run(X, y, kfold=5)
+# run(X, y, kfold=None)
+# run(X, y, kfold=2)
 
 # Case 3
 # x: MN_KG,LT,DH (t-3, t-2, t-1, t) | LM_KG,LT,DH (t-3, t-2, t-1, t) => 6 * 4 = 24
@@ -145,11 +155,11 @@ for year in years:
 X = np.vstack(X)
 y = np.hstack(y)
 
-run(X, y, kfold=None)
-run(X, y, kfold=5)
+# run(X, y, kfold=None)
+# run(X, y, kfold=2)
 
 # Case 4
-# x: MN_KG,LT,DH (t-3, t-2, t-1, t) | LM_KG,LT,DH (t-3, t-2, t-1, t, t+1) => 3 * 4 + 3 * 5 = 27
+# x: MN_KG,LT,DH (t-3, t-2, t-1, t) | LM_KG,LT,DH (t-3, t-2, t-1, t) | LM_DH (t+1) => 3 * 4 + 3 * 4 + 1 = 25
 # y: MN_KG (t+1)
 print("==> Case 4 <==")
 k = 4
@@ -160,12 +170,12 @@ for year in years:
     dt = df[df.Year == year]
     max_len = len(dt)-k
 
-    x = np.empty((max_len, 27))
+    x = np.empty((max_len, 25))
     for i in range(max_len):
         dx1 = dt.iloc[i:i+k][['MN_KG', 'MN_LT', 'MN_DH', 
                               'LM_KG', 'LM_LT', 'LM_DH']].values
         dx1 = dx1.reshape(1, -1)
-        dx2 = dt.iloc[i+k][['LM_KG', 'LM_LT', 'LM_DH']].values
+        dx2 = dt.iloc[i+k][['LM_DH']].values
         dx2 = dx2.reshape(1, -1)
         x[i] = np.hstack((dx1, dx2))
     X.append(x)
@@ -175,4 +185,4 @@ X = np.vstack(X)
 y = np.hstack(y)
 
 run(X, y, kfold=None)
-run(X, y, kfold=5)
+# run(X, y, kfold=2)
